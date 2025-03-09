@@ -2,8 +2,6 @@ import math
 
 
 def statement(invoice: dict, plays: dict) -> str:
-    result = f"Statement for {invoice['customer']}\n"
-
     def usd(amount: float) -> str:
         return f"${amount / 100:0,.2f}"
 
@@ -46,6 +44,8 @@ def statement(invoice: dict, plays: dict) -> str:
         for perf in invoice["performances"]:
             result += volume_credits_for(perf)
         return result
+
+    result = f"Statement for {invoice['customer']}\n"
 
     for perf in invoice["performances"]:
         # print line for this order
