@@ -12,19 +12,20 @@ def statement(invoice: dict, plays: dict) -> str:
     for perf in invoice["performances"]:
         play = plays[perf["playID"]]
 
-        if play["type"] == "tragedy":
-            this_amount = 40000
-            if perf["audience"] > 30:
-                this_amount += 1000 * (perf["audience"] - 30)
+        match play["type"]:
+            case "tragedy":
+                this_amount = 40000
+                if perf["audience"] > 30:
+                    this_amount += 1000 * (perf["audience"] - 30)
 
-        elif play["type"] == "comedy":
-            this_amount = 30000
-            if perf["audience"] > 20:
-                this_amount += 10000 + 500 * (perf["audience"] - 20)
-            this_amount += 300 * perf["audience"]
+            case "comedy":
+                this_amount = 30000
+                if perf["audience"] > 20:
+                    this_amount += 10000 + 500 * (perf["audience"] - 20)
+                this_amount += 300 * perf["audience"]
 
-        else:
-            raise ValueError(f"unknown type: {play['type']}")
+            case _:
+                raise ValueError(f"unknown type: {play['type']}")
 
         # add volume credits
         volume_credits += max(perf["audience"] - 30, 0)
