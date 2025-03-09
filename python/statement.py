@@ -13,7 +13,7 @@ def statement(invoice: dict, plays: dict) -> str:
         return plays[performance["playID"]]
 
     def amount_for(performance: dict, play: dict) -> int:
-        match play["type"]:
+        match play_for(performance)["type"]:
             case "tragedy":
                 result = 40000
                 if performance["audience"] > 30:
@@ -26,7 +26,7 @@ def statement(invoice: dict, plays: dict) -> str:
                 result += 300 * performance["audience"]
 
             case _:
-                raise ValueError(f"unknown type: {play['type']}")
+                raise ValueError(f"unknown type: {play_for(performance)['type']}")
 
         return result
 
