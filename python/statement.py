@@ -2,6 +2,10 @@ import math
 
 
 def statement(invoice: dict, plays: dict) -> str:
+    return render_plain_text(invoice, plays)
+
+
+def render_plain_text(invoice: dict, plays: dict) -> str:
     def usd(amount: float) -> str:
         return f"${amount / 100:0,.2f}"
 
@@ -48,7 +52,6 @@ def statement(invoice: dict, plays: dict) -> str:
     result = f"Statement for {invoice['customer']}\n"
 
     for perf in invoice["performances"]:
-        # print line for this order
         result += f" {play_for(perf)['name']}: {usd(amount_for(perf))} ({perf['audience']} seats)\n"
 
     result += f"Amount owed is {usd(total_amount())}\n"
