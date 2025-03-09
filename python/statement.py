@@ -9,6 +9,13 @@ def statement(invoice: dict, plays: dict) -> str:
     def format_as_dollars(amount: float) -> str:
         return f"${amount:0,.2f}"
 
+    def volume_credits_for(perf: dict) -> int:
+        volume_credits = 0
+        volume_credits += max(perf["audience"] - 30, 0)
+        if "comedy" == play_for(perf)["type"]:
+            volume_credits += math.floor(perf["audience"] / 5)
+        return volume_credits
+
     def play_for(performance: dict) -> dict:
         return plays[performance["playID"]]
 
@@ -31,12 +38,7 @@ def statement(invoice: dict, plays: dict) -> str:
         return result
 
     for perf in invoice["performances"]:
-        # add volume credits
-        volume_credits += max(perf["audience"] - 30, 0)
-
-        # add extra credit for every ten comedy attendees
-        if "comedy" == play_for(perf)["type"]:
-            volume_credits += math.floor(perf["audience"] / 5)
+        volume_credits += volume_credits_for(perf)
 
         # print line for this order
         result += f" {play_for(perf)['name']}: {format_as_dollars(amount_for(perf) / 100)} ({perf['audience']} seats)\n"
