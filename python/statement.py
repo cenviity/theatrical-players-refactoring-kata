@@ -9,12 +9,12 @@ def statement(invoice: dict, plays: dict) -> str:
     def format_as_dollars(amount: float) -> str:
         return f"${amount:0,.2f}"
 
-    def volume_credits_for(perf: dict) -> int:
-        volume_credits = 0
-        volume_credits += max(perf["audience"] - 30, 0)
-        if "comedy" == play_for(perf)["type"]:
-            volume_credits += math.floor(perf["audience"] / 5)
-        return volume_credits
+    def volume_credits_for(performance: dict) -> int:
+        result = 0
+        result += max(performance["audience"] - 30, 0)
+        if "comedy" == play_for(performance)["type"]:
+            result += math.floor(performance["audience"] / 5)
+        return result
 
     def play_for(performance: dict) -> dict:
         return plays[performance["playID"]]
