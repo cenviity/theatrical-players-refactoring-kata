@@ -2,9 +2,13 @@ import math
 
 
 def statement(invoice: dict, plays: dict) -> str:
+    def enrich_performance(performance: dict) -> dict:
+        result = performance.copy()
+        return result
+
     statement_data = {
         "customer": invoice["customer"],
-        "performances": invoice["performances"],
+        "performances": [enrich_performance(perf) for perf in invoice["performances"]],
     }
     return render_plain_text(statement_data, plays)
 
