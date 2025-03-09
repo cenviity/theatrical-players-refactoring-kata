@@ -38,16 +38,10 @@ def statement(invoice: dict, plays: dict) -> str:
         return result
 
     def total_amount(data: dict) -> int:
-        result = 0
-        for perf in data["performances"]:
-            result += perf["amount"]
-        return result
+        return sum(perf["amount"] for perf in data["performances"])
 
     def total_volume_credits(data: dict) -> int:
-        result = 0
-        for perf in data["performances"]:
-            result += perf["volume_credits"]
-        return result
+        return sum(perf["volume_credits"] for perf in data["performances"])
 
     statement_data = {
         "customer": invoice["customer"],
