@@ -10,4 +10,5 @@ dev = [
     "approvaltests>=14.3.0",
     "pytest>=8.3.5",
     "pytest-approvaltests>=0.2.4",
+    "pytest-watcher>=0.4.3",
 ]
