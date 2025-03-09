@@ -37,22 +37,23 @@ def statement(invoice: dict, plays: dict) -> str:
             result += math.floor(performance["audience"] / 5)
         return result
 
+    def total_amount(data: dict) -> int:
+        result = 0
+        for perf in data["performances"]:
+            result += perf["amount"]
+        return result
+
     statement_data = {
         "customer": invoice["customer"],
         "performances": [enrich_performance(perf) for perf in invoice["performances"]],
     }
+    statement_data["total_amount"] = total_amount(statement_data)
     return render_plain_text(statement_data)
 
 
 def render_plain_text(data: dict) -> str:
     def usd(amount: float) -> str:
         return f"${amount / 100:0,.2f}"
-
-    def total_amount() -> int:
-        result = 0
-        for perf in data["performances"]:
-            result += perf["amount"]
-        return result
 
     def total_volume_credits() -> int:
         result = 0
@@ -65,6 +66,6 @@ def render_plain_text(data: dict) -> str:
     for perf in data["performances"]:
         result += f" {perf['play']['name']}: {usd(perf['amount'])} ({perf['audience']} seats)\n"
 
-    result += f"Amount owed is {usd(total_amount())}\n"
+    result += f"Amount owed is {usd(data['total_amount'])}\n"
     result += f"You earned {total_volume_credits()} credits\n"
     return result
