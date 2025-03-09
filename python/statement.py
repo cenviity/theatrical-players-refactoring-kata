@@ -14,10 +14,10 @@ def statement(invoice: dict, plays: dict) -> str:
         "customer": invoice["customer"],
         "performances": [enrich_performance(perf) for perf in invoice["performances"]],
     }
-    return render_plain_text(statement_data, plays)
+    return render_plain_text(statement_data)
 
 
-def render_plain_text(data: dict, plays: dict) -> str:
+def render_plain_text(data: dict) -> str:
     def usd(amount: float) -> str:
         return f"${amount / 100:0,.2f}"
 
