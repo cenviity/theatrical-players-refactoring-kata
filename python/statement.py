@@ -2,7 +2,7 @@ import math
 
 
 def statement(invoice: dict, plays: dict) -> str:
-    statement_data = {}
+    statement_data = {"customer": invoice["customer"]}
     return render_plain_text(statement_data, invoice, plays)
 
 
@@ -50,7 +50,7 @@ def render_plain_text(data: dict, invoice: dict, plays: dict) -> str:
             result += volume_credits_for(perf)
         return result
 
-    result = f"Statement for {invoice['customer']}\n"
+    result = f"Statement for {data['customer']}\n"
 
     for perf in invoice["performances"]:
         result += f" {play_for(perf)['name']}: {usd(amount_for(perf))} ({perf['audience']} seats)\n"
