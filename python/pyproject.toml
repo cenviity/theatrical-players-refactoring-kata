@@ -4,4 +4,10 @@ version = "0.1.0"
 description = "Practice example from chapter 1 of 'Refactoring' by Martin Fowler"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = []
+
+[dependency-groups]
+dev = [
+    "approvaltests>=14.3.0",
+    "pytest>=8.3.5",
+    "pytest-approvaltests>=0.2.4",
+]

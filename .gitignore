@@ -3,3 +3,6 @@
 **/build
 **/.gradle
 .DS_Store
+
+# Python
+.approval_tests_temp
