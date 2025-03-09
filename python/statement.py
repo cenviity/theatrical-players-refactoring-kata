@@ -9,23 +9,23 @@ def statement(invoice: dict, plays: dict) -> str:
     def format_as_dollars(amount: float) -> str:
         return f"${amount:0,.2f}"
 
-    def amount_for(perf: dict, play: dict) -> int:
+    def amount_for(performance: dict, play: dict) -> int:
         match play["type"]:
             case "tragedy":
-                this_amount = 40000
-                if perf["audience"] > 30:
-                    this_amount += 1000 * (perf["audience"] - 30)
+                result = 40000
+                if performance["audience"] > 30:
+                    result += 1000 * (performance["audience"] - 30)
 
             case "comedy":
-                this_amount = 30000
-                if perf["audience"] > 20:
-                    this_amount += 10000 + 500 * (perf["audience"] - 20)
-                this_amount += 300 * perf["audience"]
+                result = 30000
+                if performance["audience"] > 20:
+                    result += 10000 + 500 * (performance["audience"] - 20)
+                result += 300 * performance["audience"]
 
             case _:
                 raise ValueError(f"unknown type: {play['type']}")
 
-        return this_amount
+        return result
 
     for perf in invoice["performances"]:
         play = plays[perf["playID"]]
