@@ -9,9 +9,7 @@ def statement(invoice: dict, plays: dict) -> str:
     def format_as_dollars(amount: float) -> str:
         return f"${amount:0,.2f}"
 
-    for perf in invoice["performances"]:
-        play = plays[perf["playID"]]
-
+    def amount_for(perf: dict, play: dict) -> int:
         match play["type"]:
             case "tragedy":
                 this_amount = 40000
@@ -26,6 +24,12 @@ def statement(invoice: dict, plays: dict) -> str:
 
             case _:
                 raise ValueError(f"unknown type: {play['type']}")
+
+        return this_amount
+
+    for perf in invoice["performances"]:
+        play = plays[perf["playID"]]
+        this_amount = amount_for(perf, play)
 
         # add volume credits
         volume_credits += max(perf["audience"] - 30, 0)
