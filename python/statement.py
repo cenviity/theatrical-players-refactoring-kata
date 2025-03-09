@@ -36,15 +36,18 @@ def statement(invoice: dict, plays: dict) -> str:
 
         return result
 
+    def total_volume_credits() -> int:
+        volume_credits = 0
+        for perf in invoice["performances"]:
+            volume_credits += volume_credits_for(perf)
+        return volume_credits
+
     for perf in invoice["performances"]:
         # print line for this order
         result += f" {play_for(perf)['name']}: {usd(amount_for(perf))} ({perf['audience']} seats)\n"
         total_amount += amount_for(perf)
 
-    volume_credits = 0
-    for perf in invoice["performances"]:
-        volume_credits += volume_credits_for(perf)
-
+    volume_credits = total_volume_credits()
     result += f"Amount owed is {usd(total_amount)}\n"
     result += f"You earned {volume_credits} credits\n"
     return result
