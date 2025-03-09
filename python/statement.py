@@ -12,7 +12,7 @@ def statement(invoice: dict, plays: dict) -> str:
     def play_for(performance: dict) -> dict:
         return plays[performance["playID"]]
 
-    def amount_for(performance: dict, play: dict) -> int:
+    def amount_for(performance: dict) -> int:
         match play_for(performance)["type"]:
             case "tragedy":
                 result = 40000
@@ -31,7 +31,7 @@ def statement(invoice: dict, plays: dict) -> str:
         return result
 
     for perf in invoice["performances"]:
-        this_amount = amount_for(perf, play_for(perf))
+        this_amount = amount_for(perf)
 
         # add volume credits
         volume_credits += max(perf["audience"] - 30, 0)
