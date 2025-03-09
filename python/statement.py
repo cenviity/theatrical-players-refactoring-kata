@@ -9,7 +9,7 @@ def statement(invoice: dict, plays: dict) -> str:
     return render_plain_text(statement_data, plays)
 
 
-def render_plain_text(data: dict, invoice: dict, plays: dict) -> str:
+def render_plain_text(data: dict, plays: dict) -> str:
     def usd(amount: float) -> str:
         return f"${amount / 100:0,.2f}"
 
