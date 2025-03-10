@@ -2,20 +2,25 @@ import math
 
 
 class PerformanceCalculator:
-    def __init__(self, performance: dict):
+    def __init__(self, performance: dict, play: dict):
         self._performance = performance
+        self._play = play
 
     @property
     def performance(self) -> dict:
         return self._performance
 
+    @property
+    def play(self) -> dict:
+        return self._play
+
 
 def create_statement_data(invoice: dict, plays: dict) -> dict:
     def enrich_performance(performance: dict) -> dict:
-        calculator = PerformanceCalculator(performance)
+        calculator = PerformanceCalculator(performance, play_for(performance))
 
         result = performance.copy()
-        result["play"] = play_for(result)
+        result["play"] = calculator.play
         result["amount"] = amount_for(result)
         result["volume_credits"] = volume_credits_for(result)
         return result
