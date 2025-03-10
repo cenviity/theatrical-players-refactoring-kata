@@ -33,6 +33,14 @@ class PerformanceCalculator:
 
         return result
 
+    @property
+    def volume_credits(self) -> int:
+        result = 0
+        result += max(self.performance["audience"] - 30, 0)
+        if self.play["type"] == "comedy":
+            result += math.floor(self.performance["audience"] / 5)
+        return result
+
 
 def create_statement_data(invoice: dict, plays: dict) -> dict:
     def enrich_performance(performance: dict) -> dict:
