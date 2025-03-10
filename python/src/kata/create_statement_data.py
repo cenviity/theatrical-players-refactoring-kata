@@ -37,8 +37,9 @@ class ComedyCalculator(PerformanceCalculator):
     def amount(self) -> int:
         result = 30_000
         if self.performance["audience"] > 20:
-            result += 500 * self.performance["audience"]
-        result += 300 * self.performance["audience"]
+            result += 800 * self.performance["audience"]
+        else:
+            result += 300 * self.performance["audience"]
         return result
 
     @property
