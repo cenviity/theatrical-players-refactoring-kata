@@ -43,10 +43,10 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
     def total_volume_credits(data: dict) -> int:
         return sum(perf["volume_credits"] for perf in data["performances"])
 
-    statement_data = {
+    result = {
         "customer": invoice["customer"],
         "performances": [enrich_performance(perf) for perf in invoice["performances"]],
     }
-    statement_data["total_amount"] = total_amount(statement_data)
-    statement_data["total_volume_credits"] = total_volume_credits(statement_data)
-    return statement_data
+    result["total_amount"] = total_amount(result)
+    result["total_volume_credits"] = total_volume_credits(result)
+    return result
