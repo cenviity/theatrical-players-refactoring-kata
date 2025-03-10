@@ -6,9 +6,6 @@ def statement(invoice: dict, plays: dict) -> str:
 
 
 def render_plain_text(data: dict) -> str:
-    def usd(amount: float) -> str:
-        return f"${amount / 100:0,.2f}"
-
     result = f"Statement for {data['customer']}\n"
 
     for perf in data["performances"]:
@@ -17,3 +14,7 @@ def render_plain_text(data: dict) -> str:
     result += f"Amount owed is {usd(data['total_amount'])}\n"
     result += f"You earned {data['total_volume_credits']} credits\n"
     return result
+
+
+def usd(amount: float) -> str:
+    return f"${amount / 100:0,.2f}"
