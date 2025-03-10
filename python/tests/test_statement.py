@@ -3,7 +3,7 @@ import json
 import pytest
 from approval_utilities.utils import get_adjacent_file
 from approvaltests import verify
-from kata.statement import statement
+from kata.statement import html_statement, statement
 
 
 def test_example_statement():
@@ -12,6 +12,14 @@ def test_example_statement():
     with open(get_adjacent_file("plays.json")) as f:
         plays = json.loads(f.read())
     verify(statement(invoice, plays))
+
+
+def test_example_html_statement():
+    with open(get_adjacent_file("invoice.json")) as f:
+        invoice = json.loads(f.read())
+    with open(get_adjacent_file("plays.json")) as f:
+        plays = json.loads(f.read())
+    verify(html_statement(invoice, plays))
 
 
 def test_statement_with_new_play_types():
