@@ -48,22 +48,7 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
         return plays[performance["playID"]]
 
     def amount_for(performance: dict) -> int:
-        match performance["play"]["type"]:
-            case "tragedy":
-                result = 40_000
-                if performance["audience"] > 30:
-                    result += 1000 * (performance["audience"] - 30)
-
-            case "comedy":
-                result = 30_000
-                if performance["audience"] > 20:
-                    result += 10_000 + 500 * (performance["audience"] - 20)
-                    result += 300 * performance["audience"]
-
-            case _:
-                raise ValueError(f"unknown type: {performance['play']['type']}")
-
-        return result
+        return PerformanceCalculator(performance, play_for(performance)).amount
 
     def volume_credits_for(performance: dict) -> int:
         result = 0
