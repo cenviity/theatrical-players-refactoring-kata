@@ -33,7 +33,7 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
     def volume_credits_for(performance: dict) -> int:
         result = 0
         result += max(performance["audience"] - 30, 0)
-        if "comedy" == performance["play"]["type"]:
+        if performance["play"]["type"] == "comedy":
             result += math.floor(performance["audience"] / 5)
         return result
 
