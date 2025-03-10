@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "Practice example from chapter 1 of 'Refactoring' by Martin Fowler"
 readme = "README.md"
 requires-python = ">=3.8"
+dependencies = [
+    "cattrs>=24.1.2",
+]
 
 [dependency-groups]
 dev = [
