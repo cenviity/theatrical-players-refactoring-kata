@@ -16,11 +16,7 @@ class PerformanceCalculator:
 
     @property
     def amount(self) -> int:
-        match self.play["type"]:
-            case "tragedy" | "comedy":
-                raise ValueError("bad thing")
-            case _:
-                raise ValueError(f"unknown type: {self.play['type']}")
+        raise ValueError("subclass responsibility")
 
     @property
     def volume_credits(self) -> int:
