@@ -9,7 +9,9 @@ def render_plain_text(data: dict) -> str:
     result = f"Statement for {data['customer']}\n"
 
     for perf in data["performances"]:
-        result += f" {perf['play']['name']}: {usd(perf['amount'])} ({perf['audience']} seats)\n"
+        result += (
+            f" {perf['play'].name}: {usd(perf['amount'])} ({perf['audience']} seats)\n"
+        )
 
     result += f"Amount owed is {usd(data['total_amount'])}\n"
     result += f"You earned {data['total_volume_credits']} credits\n"
@@ -26,7 +28,7 @@ def render_html(data: dict) -> str:
     result += "<tr><th>play</th><th>seats</th><th>cost</th></tr>\n"
 
     for perf in data["performances"]:
-        result += f" <tr><td>{perf['play']['name']}</td><td>{perf['audience']}</td>"
+        result += f" <tr><td>{perf['play'].name}</td><td>{perf['audience']}</td>"
         result += f"<td>{usd(perf['amount'])}</td></tr>\n"
 
     result += "</table>\n"

@@ -1,17 +1,20 @@
 import math
 
+from cattrs import structure
+from kata.classes import Play
+
 
 class PerformanceCalculator:
     def __init__(self, performance: dict, play: dict):
         self._performance = performance
-        self._play = play
+        self._play = structure(play, Play)
 
     @property
     def performance(self) -> dict:
         return self._performance
 
     @property
-    def play(self) -> dict:
+    def play(self) -> Play:
         return self._play
 
     @property
