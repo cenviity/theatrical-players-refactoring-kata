@@ -1,8 +1,19 @@
 import math
 
 
+class PerformanceCalculator:
+    def __init__(self, performance: dict):
+        self._performance = performance
+
+    @property
+    def performance(self) -> dict:
+        return self._performance
+
+
 def create_statement_data(invoice: dict, plays: dict) -> dict:
     def enrich_performance(performance: dict) -> dict:
+        calculator = PerformanceCalculator(performance)
+
         result = performance.copy()
         result["play"] = play_for(result)
         result["amount"] = amount_for(result)
@@ -23,7 +34,7 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
                 result = 30_000
                 if performance["audience"] > 20:
                     result += 10_000 + 500 * (performance["audience"] - 20)
-                result += 300 * performance["audience"]
+                    result += 300 * performance["audience"]
 
             case _:
                 raise ValueError(f"unknown type: {performance['play']['type']}")
