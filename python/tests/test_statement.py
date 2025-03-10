@@ -3,7 +3,7 @@ import json
 import pytest
 from approval_utilities.utils import get_adjacent_file
 from approvaltests import verify
-from statement import statement
+from kata.statement import statement
 
 
 def test_example_statement():

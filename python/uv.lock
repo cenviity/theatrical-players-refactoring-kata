@@ -388,7 +388,7 @@ wheels = [
 [[package]]
 name = "theatrical-players-refactoring-kata"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 
 [package.dev-dependencies]
 dev = [
