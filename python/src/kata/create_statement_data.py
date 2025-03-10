@@ -42,6 +42,14 @@ class PerformanceCalculator:
         return result
 
 
+class TragedyCalculator(PerformanceCalculator):
+    pass
+
+
+class ComedyCalculator(PerformanceCalculator):
+    pass
+
+
 def create_statement_data(invoice: dict, plays: dict) -> dict:
     def enrich_performance(performance: dict) -> dict:
         calculator = create_performance_calculator(performance, play_for(performance))
@@ -55,7 +63,13 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
     def create_performance_calculator(
         performance: dict, play: dict
     ) -> PerformanceCalculator:
-        return PerformanceCalculator(performance, play)
+        match play["type"]:
+            case "tragedy":
+                return TragedyCalculator(performance, play)
+            case "comedy":
+                return ComedyCalculator(performance, play)
+            case _:
+                raise ValueError(f"unknown type: {play['type']}")
 
     def play_for(performance: dict) -> dict:
         return plays[performance["playID"]]
