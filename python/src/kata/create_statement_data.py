@@ -35,12 +35,11 @@ class TragedyCalculator(PerformanceCalculator):
 class ComedyCalculator(PerformanceCalculator):
     @property
     def amount(self) -> int:
-        result = 30_000
         if self.performance["audience"] > 20:
-            result += 800 * self.performance["audience"]
+            boost_factor = 800
         else:
-            result += 300 * self.performance["audience"]
-        return result
+            boost_factor = 300
+        return 30_000 + boost_factor * self.performance["audience"]
 
     @property
     def volume_credits(self) -> int:
