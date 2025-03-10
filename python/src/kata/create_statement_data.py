@@ -56,11 +56,7 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
         return plays[performance["playID"]]
 
     def volume_credits_for(performance: dict) -> int:
-        result = 0
-        result += max(performance["audience"] - 30, 0)
-        if performance["play"]["type"] == "comedy":
-            result += math.floor(performance["audience"] / 5)
-        return result
+        return PerformanceCalculator(performance, play_for(performance)).volume_credits
 
     def total_amount(data: dict) -> int:
         return sum(perf["amount"] for perf in data["performances"])
