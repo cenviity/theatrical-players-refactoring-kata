@@ -15,14 +15,14 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
     def amount_for(performance: dict) -> int:
         match performance["play"]["type"]:
             case "tragedy":
-                result = 40000
+                result = 40_000
                 if performance["audience"] > 30:
                     result += 1000 * (performance["audience"] - 30)
 
             case "comedy":
-                result = 30000
+                result = 30_000
                 if performance["audience"] > 20:
-                    result += 10000 + 500 * (performance["audience"] - 20)
+                    result += 10_000 + 500 * (performance["audience"] - 20)
                 result += 300 * performance["audience"]
 
             case _:
