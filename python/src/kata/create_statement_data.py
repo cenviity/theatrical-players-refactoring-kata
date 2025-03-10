@@ -17,21 +17,10 @@ class PerformanceCalculator:
     @property
     def amount(self) -> int:
         match self.play["type"]:
-            case "tragedy":
-                result = 40_000
-                if self.performance["audience"] > 30:
-                    result += 1000 * (self.performance["audience"] - 30)
-
-            case "comedy":
-                result = 30_000
-                if self.performance["audience"] > 20:
-                    result += 10_000 + 500 * (self.performance["audience"] - 20)
-                    result += 300 * self.performance["audience"]
-
+            case "tragedy" | "comedy":
+                raise ValueError("bad thing")
             case _:
                 raise ValueError(f"unknown type: {self.play['type']}")
-
-        return result
 
     @property
     def volume_credits(self) -> int:
@@ -43,11 +32,22 @@ class PerformanceCalculator:
 
 
 class TragedyCalculator(PerformanceCalculator):
-    pass
+    @property
+    def amount(self) -> int:
+        result = 40_000
+        if self.performance["audience"] > 30:
+            result += 1000 * (self.performance["audience"] - 30)
+        return result
 
 
 class ComedyCalculator(PerformanceCalculator):
-    pass
+    @property
+    def amount(self) -> int:
+        result = 30_000
+        if self.performance["audience"] > 20:
+            result += 10_000 + 500 * (self.performance["audience"] - 20)
+        result += 300 * self.performance["audience"]
+        return result
 
 
 def create_statement_data(invoice: dict, plays: dict) -> dict:
