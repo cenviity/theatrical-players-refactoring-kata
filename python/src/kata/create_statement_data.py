@@ -40,15 +40,12 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
 
         result = performance.copy()
         result["play"] = calculator.play
-        result["amount"] = amount_for(result)
+        result["amount"] = calculator.amount
         result["volume_credits"] = volume_credits_for(result)
         return result
 
     def play_for(performance: dict) -> dict:
         return plays[performance["playID"]]
-
-    def amount_for(performance: dict) -> int:
-        return PerformanceCalculator(performance, play_for(performance)).amount
 
     def volume_credits_for(performance: dict) -> int:
         result = 0
