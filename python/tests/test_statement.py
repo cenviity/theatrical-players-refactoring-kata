@@ -3,6 +3,7 @@ import json
 import pytest
 from approval_utilities.utils import get_adjacent_file
 from approvaltests import verify
+from cattrs import ClassValidationError
 from kata.statement import html_statement, statement
 
 
@@ -27,6 +28,6 @@ def test_statement_with_new_play_types():
         invoice = json.loads(f.read())
     with open(get_adjacent_file("new_plays.json")) as f:
         plays = json.loads(f.read())
-    with pytest.raises(ValueError) as exception_info:
+    with pytest.raises(ClassValidationError) as exception_info:
         statement(invoice, plays)
-    assert "unknown type" in str(exception_info.value)
+    assert "While structuring Play" in str(exception_info.value)

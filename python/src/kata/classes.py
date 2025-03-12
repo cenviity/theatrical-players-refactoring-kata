@@ -6,6 +6,8 @@ from attrs import define
 class PlayType(StrEnum):
     TRAGEDY = auto()
     COMEDY = auto()
+    # HISTORY = auto()
+    # PASTORAL = auto()
 
 
 @define

@@ -1,13 +1,13 @@
 import math
 
 from cattrs import structure
-from kata.classes import Play
+from kata.classes import Play, PlayType
 
 
 class PerformanceCalculator:
-    def __init__(self, performance: dict, play: dict):
+    def __init__(self, performance: dict, play: Play):
         self._performance = performance
-        self._play = structure(play, Play)
+        self._play = play
 
     @property
     def performance(self) -> dict:
@@ -60,18 +60,18 @@ def create_statement_data(invoice: dict, plays: dict) -> dict:
         return result
 
     def create_performance_calculator(
-        performance: dict, play: dict
+        performance: dict, play: Play
     ) -> PerformanceCalculator:
-        match play["type"]:
-            case "tragedy":
+        match play.type:
+            case PlayType.TRAGEDY:
                 return TragedyCalculator(performance, play)
-            case "comedy":
+            case PlayType.COMEDY:
                 return ComedyCalculator(performance, play)
             case _:
-                raise ValueError(f"unknown type: {play['type']}")
+                raise ValueError(f"unknown type: {play.type}")
 
-    def play_for(performance: dict) -> dict:
-        return plays[performance["playID"]]
+    def play_for(performance: dict) -> Play:
+        return structure(plays[performance["playID"]], Play)
 
     def total_amount(data: dict) -> int:
         return sum(perf["amount"] for perf in data["performances"])
