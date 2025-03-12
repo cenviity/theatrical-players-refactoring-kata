@@ -4,8 +4,8 @@ use currency_rs::{Currency, CurrencyOpts};
 use serde_json::Value;
 
 fn usd(value: f64) -> Currency {
-    let otp = CurrencyOpts::new().set_symbol("$").set_precision(2);
-    Currency::new_float(value, Some(otp))
+    let opt = CurrencyOpts::new().set_symbol("$").set_precision(2);
+    Currency::new_float(value, Some(opt))
 }
 
 pub fn statement(invoice: Value, plays: Value) -> String {
