@@ -8,8 +8,11 @@ pub fn statement(invoice: Value, plays: Value) -> String {
     let mut volume_credits = 0;
     let mut result = format!("Statement for {}\n", invoice["customer"].as_str().unwrap());
 
+    let play_for =
+        |performance: &Value| -> &Value { &plays[performance["playID"].as_str().unwrap()] };
+
     for perf in invoice["performances"].as_array().unwrap() {
-        let play = &plays[perf["playID"].as_str().unwrap()];
+        let play = play_for(perf);
         let this_amount = amount_for(perf, play);
         // add volume credits
         volume_credits += max(perf["audience"].as_u64().unwrap() - 30, 0);
