@@ -50,7 +50,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "unknown type")]
+    #[should_panic(expected = "unknown type: ")]
     fn statement_with_new_play_types() {
         let invoice = json!({
             "customer": "BigCoII",

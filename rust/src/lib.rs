@@ -31,7 +31,7 @@ pub fn statement(invoice: Value, plays: Value) -> String {
                 this_amount += 300 * perf["audience"].as_u64().unwrap();
             }
             play_type => {
-                panic!("unknown type:{}", play_type);
+                panic!("unknown type: {}", play_type);
             }
         }
         // add volume credits
