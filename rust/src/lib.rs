@@ -39,14 +39,14 @@ pub fn statement(invoice: Value, plays: Value) -> String {
         result += &format!(
             " {}: {} ({} seats)\n",
             play["name"].as_str().unwrap(),
-            usd(this_amount as f64 / 100 as f64).format(),
+            usd(this_amount as f64 / 100_f64).format(),
             perf["audience"].as_u64().unwrap()
         );
         total_amount += this_amount;
     }
     result += &format!(
         "Amount owed is {}\n",
-        usd(total_amount as f64 / 100 as f64).format()
+        usd(total_amount as f64 / 100_f64).format()
     );
     result += &format!("You earned {} credits\n", volume_credits);
     result
