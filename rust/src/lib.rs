@@ -3,11 +3,6 @@ use std::cmp::max;
 use currency_rs::{Currency, CurrencyOpts};
 use serde_json::Value;
 
-fn usd(value: f64) -> Currency {
-    let opt = CurrencyOpts::new().set_symbol("$").set_precision(2);
-    Currency::new_float(value, Some(opt))
-}
-
 pub fn statement(invoice: Value, plays: Value) -> String {
     let mut total_amount = 0;
     let mut volume_credits = 0;
@@ -55,4 +50,9 @@ pub fn statement(invoice: Value, plays: Value) -> String {
     );
     result += &format!("You earned {} credits\n", volume_credits);
     result
+}
+
+fn usd(value: f64) -> Currency {
+    let opt = CurrencyOpts::new().set_symbol("$").set_precision(2);
+    Currency::new_float(value, Some(opt))
 }
