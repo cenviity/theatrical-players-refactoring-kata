@@ -10,25 +10,7 @@ pub fn statement(invoice: Value, plays: Value) -> String {
 
     for perf in invoice["performances"].as_array().unwrap() {
         let play = &plays[perf["playID"].as_str().unwrap()];
-        let mut this_amount;
-        match play["type"].as_str().unwrap() {
-            "tragedy" => {
-                this_amount = 40000;
-                if perf["audience"].as_u64().unwrap() > 30 {
-                    this_amount += 1000 * (perf["audience"].as_u64().unwrap() - 30);
-                }
-            }
-            "comedy" => {
-                this_amount = 30000;
-                if perf["audience"].as_u64().unwrap() > 20 {
-                    this_amount += 10000 + 500 * (perf["audience"].as_u64().unwrap() - 20);
-                }
-                this_amount += 300 * perf["audience"].as_u64().unwrap();
-            }
-            play_type => {
-                panic!("unknown type: {}", play_type);
-            }
-        }
+        let this_amount = amount_for(perf, play);
         // add volume credits
         volume_credits += max(perf["audience"].as_u64().unwrap() - 30, 0);
         // add extra credit for every ten comedy attendees
@@ -50,6 +32,29 @@ pub fn statement(invoice: Value, plays: Value) -> String {
     );
     result += &format!("You earned {} credits\n", volume_credits);
     result
+}
+
+fn amount_for(perf: &Value, play: &Value) -> u64 {
+    let mut this_amount;
+    match play["type"].as_str().unwrap() {
+        "tragedy" => {
+            this_amount = 40000;
+            if perf["audience"].as_u64().unwrap() > 30 {
+                this_amount += 1000 * (perf["audience"].as_u64().unwrap() - 30);
+            }
+        }
+        "comedy" => {
+            this_amount = 30000;
+            if perf["audience"].as_u64().unwrap() > 20 {
+                this_amount += 10000 + 500 * (perf["audience"].as_u64().unwrap() - 20);
+            }
+            this_amount += 300 * perf["audience"].as_u64().unwrap();
+        }
+        play_type => {
+            panic!("unknown type: {}", play_type);
+        }
+    }
+    this_amount
 }
 
 fn usd(value: f64) -> Currency {
