@@ -34,27 +34,27 @@ pub fn statement(invoice: Value, plays: Value) -> String {
     result
 }
 
-fn amount_for(perf: &Value, play: &Value) -> u64 {
-    let mut this_amount;
+fn amount_for(performance: &Value, play: &Value) -> u64 {
+    let mut result;
     match play["type"].as_str().unwrap() {
         "tragedy" => {
-            this_amount = 40000;
-            if perf["audience"].as_u64().unwrap() > 30 {
-                this_amount += 1000 * (perf["audience"].as_u64().unwrap() - 30);
+            result = 40000;
+            if performance["audience"].as_u64().unwrap() > 30 {
+                result += 1000 * (performance["audience"].as_u64().unwrap() - 30);
             }
         }
         "comedy" => {
-            this_amount = 30000;
-            if perf["audience"].as_u64().unwrap() > 20 {
-                this_amount += 10000 + 500 * (perf["audience"].as_u64().unwrap() - 20);
+            result = 30000;
+            if performance["audience"].as_u64().unwrap() > 20 {
+                result += 10000 + 500 * (performance["audience"].as_u64().unwrap() - 20);
             }
-            this_amount += 300 * perf["audience"].as_u64().unwrap();
+            result += 300 * performance["audience"].as_u64().unwrap();
         }
         play_type => {
             panic!("unknown type: {}", play_type);
         }
     }
-    this_amount
+    result
 }
 
 fn usd(value: f64) -> Currency {
